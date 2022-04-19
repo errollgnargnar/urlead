@@ -10,6 +10,7 @@ import LeadItem from "./LeadItem";
 export default function Leads({user}) {
 
     const [data, setData] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [jsonData, setJsonData] = useState([2,3,4]);
     const [isAdding, setIsAdding] = useState(false);
     const [isSearch, setIsSearch] = useState(false);
@@ -36,6 +37,7 @@ export default function Leads({user}) {
             const json = JSON.parse(data);
             setJsonData(json);
             setData(data);
+            setIsLoaded(true);
         } catch(err) {
             console.log(err);
         }
@@ -44,8 +46,9 @@ export default function Leads({user}) {
     useEffect(() => {
         console.log('rendered leads')
 
-        getData();
-    }, []);
+        getData()
+
+    }, [isLoaded]);
 
     const openNLForm = () => {
         if(isAdding) {
