@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
+
 import ClosedWon from "./components/ClosedWon";
 import ClosedLost from "./components/ClosedLost";
+import ForgotPassword from './components/ForgotPassword';
+import Form from "./components/common/Form";
+import HomePage from './components/HomePage';
 import Layout from "./components/Layout";
 import Leads from "./components/Leads";
 import NoMatch from "./components/NoMatch";
-import './App.css';
-import Form from "./components/common/Form";
 
 import { app } from './firebase-config';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import './App.css';
 
 function App() {
 
@@ -94,9 +98,10 @@ function App() {
     <div className="App">
       <ToastContainer />
       <Routes>
+        <Route path="/" exact element={<HomePage />} />
         <Route path='/login' element={<Form title="Login" setEmail={setEmail} setPassword={setPassword} handleAction={() => handleAction(1) }/>} />
         <Route path='/register' element={<Form title="Register" setEmail={setEmail} setPassword={setPassword} handleAction={() =>  handleAction(2) }/>} />
-
+        <Route path='/forgotpassword' exact element={<ForgotPassword auth={authentication}/>} />
         {/* <Route index element={<Login />} exact /> */}
           <Route path="/user" element={<Layout user={user} />}>
             <Route path="/user/leads" element={<Leads user={user}/>} />

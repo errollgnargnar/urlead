@@ -20,7 +20,7 @@ export default function NewLeadForm({getData, setIsAdding, user}) {
         e.preventDefault();
         console.log('submitting...');
         try {
-            const response = await fetch(`http://localhost:5000/api/create/${disp}/${name}/${address}/${city}/${state}/${zipcode}/${phone}/${email}/${user}/${notes}`);
+            const response = await fetch(`/api/create/${disp}/${name}/${address}/${city}/${state}/${zipcode}/${phone}/${email}/${user}/${notes}`);
             const data = await response.text();
             if (data) {
                 setDisp(''); setName(''); setAddress(''); setCity(''); setZipcode(''); setPhone(''); setEmail(''); setLo(''); setNotes('');

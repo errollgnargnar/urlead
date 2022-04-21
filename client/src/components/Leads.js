@@ -32,7 +32,7 @@ export default function Leads({user}) {
 
     const getData = async () => {
         try{
-            const response = await fetch(`http://localhost:5000/api/allleads/disp/interested/${user}`);
+            const response = await fetch(`/api/allleads/disp/interested/${user}`);
             const data = await response.text();
             const json = JSON.parse(data);
             setJsonData(json);

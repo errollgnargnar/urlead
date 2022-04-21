@@ -30,7 +30,7 @@ export default function ClosedWon({user}) {
     const getData = async () => {
         const disp = "closed won"
         try{
-            const response = await fetch(`http://localhost:5000/api/allleads/disp/${disp}/${user}`);
+            const response = await fetch(`/api/allleads/disp/${disp}/${user}`);
             const data = await response.text();
             const json = JSON.parse(data);
             setJsonData(json);

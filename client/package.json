@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
     "@emotion/react": "^11.9.0",
@@ -15,6 +16,7 @@
     "mapbox-gl": "^2.8.0",
     "node-fetch": "^3.2.3",
     "react": "^18.0.0",
+    "react-add-to-calendar": "^0.1.5",
     "react-bootstrap": "^2.2.3",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",

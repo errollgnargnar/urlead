@@ -22,7 +22,7 @@ export default function DeleteLead({id, setIsDeleting, getData}) {
 
         if(pin === deletePin) {
             try {
-                const response = await fetch(`http://localhost:5000/api/dellead/${id}`);
+                const response = await fetch(`/api/dellead/${id}`);
 
                 const resData = await response.text();
                 setTimeout(() => {

@@ -12,7 +12,7 @@ function SearchBar({setData, setJsonData}) {
 
     const getData = async () => {
       try{
-          const response = await fetch(`http://localhost:5000/api/allleads/${searchType}/${searchQuery}`);
+          const response = await fetch(`/api/allleads/${searchType}/${searchQuery}`);
           const data = await response.text();
           const json = JSON.parse(data);
           console.log(data, json);

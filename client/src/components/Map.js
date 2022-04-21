@@ -1,7 +1,7 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import React, { useRef, useEffect, useState } from 'react';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZXJyb2xsZ25hcmduYXIiLCJhIjoiY2t3cHR4Y3FlMGc3MjJvczZid2o5eG45NCJ9.9Fx38vz7p-lHHEzL_byD7Q';
+mapboxgl.accessToken = process.env.REACT_APP_MBTOKEN;
 
 
 export default function Map({latGeo, lngGeo}) {

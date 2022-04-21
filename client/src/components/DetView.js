@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Map from "./Map";
 import Form from 'react-bootstrap/Form';
@@ -8,14 +9,29 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
+import AddToCalendar from 'react-add-to-calendar';
+
+
 export default function DetView({viewDetails, name, phone, address, zipcode, disp, notes, latGeo, lngGeo, handleDVoff, handleDVon, city, state, email, id, getData, user}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
+    let event = {
+        title: 'Sample Event',
+        description: 'This is the sample event provided as an example only',
+        location: 'Portland, OR',
+        startTime: '2016-09-16T20:15:00-04:00',
+        endTime: '2016-09-16T21:45:00-04:00'
+    }
+    let icon = { textOnly: 'none' };
+
     function NonEdit() {
         return (
             <div>
+                <div>
+                    <AddToCalendar />
+                </div>
                 {!viewDetails ? (
                     <Card style={{ width: '18rem' }}>
                         <Card.Header>Quick View</Card.Header>
@@ -67,7 +83,7 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
         setStatus('Submitting Changes');
         console.log('Submitting Changes');
         try {
-            const response = await fetch(`http://localhost:5000/api/editlead/${idE}/${dispE}/${nameE}/${addressE}/${cityE}/${stateE}/${zipcodeE}/${phoneE}/${emailE}/${lo}/${notesE}`);
+            const response = await fetch(`/api/editlead/${idE}/${dispE}/${nameE}/${addressE}/${cityE}/${stateE}/${zipcodeE}/${phoneE}/${emailE}/${lo}/${notesE}`);
             const data = await response.text();
 
             setTimeout(() => {
