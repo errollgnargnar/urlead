@@ -29,9 +29,9 @@ const allLeads = async (user, qtype, disp) => {
     return cursor;
 }
 
-const createLead = async (disp = 'interested', name, address, city, state, zipcode, phone, email, lo, notes = 'hardness:5, chlorine:2', dateAdded = Date()) => {
+const createLead = async (disp = 'interested', name, address, city, state, zipcode, phone, email, lo, rep, notes = 'hardness:5, chlorine:2', dateAdded = Date()) => {
     const doc = {
-        disp, name, address, city, state, zipcode, phone, email, lo, notes, dateAdded
+        disp, name, address, city, state, zipcode, phone, email, lo, rep, notes, dateAdded
     }
     const result = await leads.insertOne(doc);
     return ( new Promise((resolve, reject) => { 
@@ -56,7 +56,7 @@ const delLead = async(id) => {
     })
 }
 
-const editLead = async (id, disp, name, address, city, state, zipcode, phone, email, lo, notes) => {
+const editLead = async (id, disp, name, address, city, state, zipcode, phone, email, lo, rep, notes) => {
     //create a filter for a lead to update
     const filter = { _id: ObjectId(id) };
 
@@ -66,7 +66,7 @@ const editLead = async (id, disp, name, address, city, state, zipcode, phone, em
     //create a doc that sets the plot of the movie
     const updateDoc = {
         $set: {
-             disp, name, address, city, state, zipcode, phone, email, lo, notes, dateAdded: Date()
+             disp, name, address, city, state, zipcode, phone, email, lo, rep, notes, dateAdded: Date()
         }
     };
 

@@ -26,7 +26,7 @@ app.get('/api/allleads/:qtype/:disp/:lo', (req, res) => {
 });
  
 //create lead
-app.get('/api/create/:disp/:name/:address/:city/:state/:zipcode/:phone/:email/:lo/:notes', (req,res) => {
+app.get('/api/create/:disp/:name/:address/:city/:state/:zipcode/:phone/:email/:lo/:rep/:notes', (req,res) => {
     const disp = req.params.disp.toLowerCase();
     const name = req.params.name.toLowerCase();
     const address = req.params.address.toLowerCase();
@@ -36,9 +36,10 @@ app.get('/api/create/:disp/:name/:address/:city/:state/:zipcode/:phone/:email/:l
     const phone = req.params.phone;
     const email = req.params.email.toLowerCase();
     const lo = req.params.lo.toLowerCase();
+    const rep = req.params.rep.toLowerCase(); 
     const notes = req.params.notes.toLowerCase();
 
-    dal.createLead(disp, name, address, city, state, zipcode, phone, email, lo, notes)
+    dal.createLead(disp, name, address, city, state, zipcode, phone, email, lo, rep, notes)
       .then(response => console.log(response))
       .then(() => res.send('lead successfully added'))
       .catch((error) => console.log(error));
@@ -53,7 +54,7 @@ app.get('/api/dellead/:id', (req, res) => {
 })
 
 //edit lead
-app.get('/api/editlead/:idE/:dispE/:nameE/:addressE/:cityE/:stateE/:zipcodeE/:phoneE/:emailE/:lo/:notesE', (req, res) => {
+app.get('/api/editlead/:idE/:dispE/:nameE/:addressE/:cityE/:stateE/:zipcodeE/:phoneE/:emailE/:lo/:repE/:notesE', (req, res) => {
     const idE = req.params.idE;
     const dispE = req.params.dispE.toLowerCase(); 
     const nameE = req.params.nameE.toLowerCase(); 
@@ -64,9 +65,10 @@ app.get('/api/editlead/:idE/:dispE/:nameE/:addressE/:cityE/:stateE/:zipcodeE/:ph
     const phoneE = req.params.phoneE; 
     const emailE = req.params.emailE.toLowerCase(); 
     const lo = req.params.lo.toLowerCase();
+    const repE = req.params.repE.toLowerCase();
     const notesE = req.params.notesE.toLowerCase();
 
-    dal.editLead(idE, dispE,nameE,addressE, cityE, stateE,zipcodeE,phoneE,emailE,lo,notesE)
+    dal.editLead(idE, dispE,nameE,addressE, cityE, stateE,zipcodeE,phoneE,emailE,lo, repE,notesE)
         .then(response => console.log(response))
         .then(() => res.send('lead successfully edited'))
         .catch(err => console.log(err));

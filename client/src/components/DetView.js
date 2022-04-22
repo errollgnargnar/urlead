@@ -9,29 +9,35 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
-import AddToCalendar from 'react-add-to-calendar';
+import { google, outlook, office365, yahoo, ics } from "calendar-link";
 
-
-export default function DetView({viewDetails, name, phone, address, zipcode, disp, notes, latGeo, lngGeo, handleDVoff, handleDVon, city, state, email, id, getData, user}) {
+export default function DetView({viewDetails, name, phone, address, zipcode, disp, notes, latGeo, lngGeo, handleDVoff, handleDVon, city, state, email, id, getData, user, rep}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    // Set event as an object
+    const event = {
+        title: `Follow-Up with ${name}, phone: ${phone}`,
+        description: `${notes}`,
+        start: new Date(),
+        duration: [1, "hour"],
+        location: `${address}, ${city} ${state} ${zipcode}`
+    };
 
-    let event = {
-        title: 'Sample Event',
-        description: 'This is the sample event provided as an example only',
-        location: 'Portland, OR',
-        startTime: '2016-09-16T20:15:00-04:00',
-        endTime: '2016-09-16T21:45:00-04:00'
+    const gCalEvent = () => {
+        return google(event);
     }
-    let icon = { textOnly: 'none' };
+
+    console.log(typeof gCalEvent());
+
+    const gotoCalendar = () => {
+        console.log(gCalEvent());
+    }
 
     function NonEdit() {
         return (
             <div>
-                <div>
-                    <AddToCalendar />
-                </div>
+
                 {!viewDetails ? (
                     <Card style={{ width: '18rem' }}>
                         <Card.Header>Quick View</Card.Header>
@@ -52,7 +58,9 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
                             <ListGroup.Item>Address: <strong>{address} {city}, {state} {zipcode}</strong></ListGroup.Item>
                             <ListGroup.Item>Status: <strong>{disp}</strong></ListGroup.Item>
                             <ListGroupItem>Notes: <strong>{notes}</strong></ListGroupItem>
+                            <ListGroupItem>Rep: <strong>{rep}</strong></ListGroupItem>
                             <ListGroupItem><small>id: <code>{id}</code></small></ListGroupItem>
+                            <ListGroupItem><Button href={gCalEvent()} target="_blank">Add Follow UP Date</Button></ListGroupItem>
                         </ListGroup>
 
                         <Map latGeo={latGeo} lngGeo={lngGeo} />
@@ -75,6 +83,7 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
     const [phoneE, setPhone]     = useState(phone);
     const [emailE, setEmail]     = useState(email);
     const [lo, setLo]            = useState(user);
+    const [repE, setRepE]        = useState(rep);
     const [notesE, setNotes]     = useState(notes);
     const [status, setStatus]    = useState('');  
 
@@ -83,7 +92,7 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
         setStatus('Submitting Changes');
         console.log('Submitting Changes');
         try {
-            const response = await fetch(`/api/editlead/${idE}/${dispE}/${nameE}/${addressE}/${cityE}/${stateE}/${zipcodeE}/${phoneE}/${emailE}/${lo}/${notesE}`);
+            const response = await fetch(`/api/editlead/${idE}/${dispE}/${nameE}/${addressE}/${cityE}/${stateE}/${zipcodeE}/${phoneE}/${emailE}/${lo}/${repE}/${notesE}`);
             const data = await response.text();
 
             setTimeout(() => {
@@ -119,6 +128,7 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
                 <Form.Control type="text" placeholder="Phone number" value={phoneE} onChange={(e) => setPhone(e.target.value)} required/>
                 <Form.Control type="text" placeholder="Email" value={emailE} onChange={(e) => setEmail(e.target.value)} />
                 <Form.Control type="text" placeholder="Lead Owner" defaultValue={lo} required disabled/>
+                <Form.Control type="text" placeholder="Rep" value={repE} onChange={(e) => setRepE(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Notes</Form.Label>

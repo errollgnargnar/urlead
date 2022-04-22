@@ -81,7 +81,9 @@ export default function Leads({user}) {
              city= {data.city} 
              state={data.state}
              getData={getData}
-             user={user} />
+             user={user}
+             rep= {data.rep}
+             />
     ))
 
     return (

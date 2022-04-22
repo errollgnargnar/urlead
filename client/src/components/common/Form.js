@@ -32,11 +32,17 @@ export default function Form({title, setPassword, setEmail, handleAction}) {
                 autoComplete="off"
             >
                 <TextField id="email" label="Enter the Email" variant="outlined" onChange={(e) => setEmail(e.target.value)}/>
-                <TextField id="password" label="Enter the Password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
+                <TextField
+                    id="outlined-password-input"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    onChange={(e) => setPassword(e.target.value)}
+                />
             </Box>
 
             <BasicButton title={title} handleAction={handleAction} />{' '}<br/>
-            <Button href="/forgotpassword">Forgot Password</Button>
+            <Button href="/forgotpassword" style={{margin: "3%"}}>Forgot Password</Button>
         </div>
     );
 }

@@ -14,13 +14,14 @@ export default function NewLeadForm({getData, setIsAdding, user}) {
     const [phone, setPhone]     = useState('');
     const [email, setEmail]     = useState('');
     const [lo, setLo]           = useState(user);
+    const [rep, setRep]         = useState('');
     const [notes, setNotes]     = useState('hardness:12, chlorine: 2');
 
     const submitLead = async (e) => {
         e.preventDefault();
         console.log('submitting...');
         try {
-            const response = await fetch(`/api/create/${disp}/${name}/${address}/${city}/${state}/${zipcode}/${phone}/${email}/${user}/${notes}`);
+            const response = await fetch(`/api/create/${disp}/${name}/${address}/${city}/${state}/${zipcode}/${phone}/${email}/${user}/${rep}/${notes}`);
             const data = await response.text();
             if (data) {
                 setDisp(''); setName(''); setAddress(''); setCity(''); setZipcode(''); setPhone(''); setEmail(''); setLo(''); setNotes('');
@@ -58,6 +59,7 @@ export default function NewLeadForm({getData, setIsAdding, user}) {
                 <Form.Control type="text" placeholder="Phone number" value={phone} onChange={(e) => setPhone(e.target.value)} required/>
                 <Form.Control type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <Form.Control type="text" placeholder="Lead Owner" defaultValue={lo} disabled/>
+                <Form.Control type="text" placeholder="Rep" value={rep} onChange={(e) => setRep(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Notes</Form.Label>
