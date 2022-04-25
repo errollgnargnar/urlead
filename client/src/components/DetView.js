@@ -8,6 +8,8 @@ import DeleteLead from './DeleteLead';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Card from 'react-bootstrap/Card'
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from 'react-bootstrap/DropdownButton'
 
 import { google, outlook, office365, yahoo, ics } from "calendar-link";
 
@@ -23,16 +25,7 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
         duration: [1, "hour"],
         location: `${address}, ${city} ${state} ${zipcode}`
     };
-
-    const gCalEvent = () => {
-        return google(event);
-    }
-
-    console.log(typeof gCalEvent());
-
-    const gotoCalendar = () => {
-        console.log(gCalEvent());
-    }
+    console.log(google(event));
 
     function NonEdit() {
         return (
@@ -60,7 +53,13 @@ export default function DetView({viewDetails, name, phone, address, zipcode, dis
                             <ListGroupItem>Notes: <strong>{notes}</strong></ListGroupItem>
                             <ListGroupItem>Rep: <strong>{rep}</strong></ListGroupItem>
                             <ListGroupItem><small>id: <code>{id}</code></small></ListGroupItem>
-                            <ListGroupItem><Button href={gCalEvent()} target="_blank">Add Follow UP Date</Button></ListGroupItem>
+                            <ListGroupItem>
+                                <DropdownButton id="dropdown-basic-button" title="Add to Calendar">
+                                    <Dropdown.Item href={google(event)} target="_blank">Google</Dropdown.Item>
+                                    <Dropdown.Item href={outlook(event)} target="_blank">Outlook</Dropdown.Item>
+                                    <Dropdown.Item href={office365(event)} target="_blank">Office365</Dropdown.Item>
+                                </DropdownButton>
+                            </ListGroupItem>
                         </ListGroup>
 
                         <Map latGeo={latGeo} lngGeo={lngGeo} />
